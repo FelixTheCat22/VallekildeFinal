@@ -631,8 +631,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   audioSource: {fileID: 673574163}
+  gameManager: {fileID: 1127719477}
   margin: 0
-  song: {fileID: 0}
   beatText: {fileID: 322766219}
 --- !u!4 &1127719476
 Transform:
@@ -661,9 +661,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c5ad1b8d8e7e388b9eb4b02b4647a4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  song: {fileID: 11400000, guid: 3849fa96e52994a378eadc30094cf714, type: 2}
+  song: {fileID: 11400000, guid: 57267ca329cd3ae4ca0edd5a590a0302, type: 2}
   metronome: {fileID: 1127719475}
   audioSource: {fileID: 673574163}
+  beatText: {fileID: 322766219}
 --- !u!1 &1920823675
 GameObject:
   m_ObjectHideFlags: 0
