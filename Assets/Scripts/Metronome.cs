@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Metronome : MonoBehaviour
 {
+    // Seems to sometimes be a bit off. Hardware lag? TODO: Figure out why
+    
     // Time is in milliseconds
     
     public AudioSource audioSource;
