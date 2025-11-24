@@ -7,8 +7,13 @@ public class GameManager : MonoBehaviour
     public AudioSource audioSource;
     
     public TMPro.TMP_Text beatText;
-    
+
     private void Start()
+    {
+        StartSong();
+    }
+    
+    private void StartSong()
     {
         metronome.Song = song;
         audioSource.clip = song.audioClip;
