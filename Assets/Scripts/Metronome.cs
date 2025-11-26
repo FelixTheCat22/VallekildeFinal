@@ -34,7 +34,7 @@ public class Metronome : MonoBehaviour
         _beatDuration = 60f / Song.bpm * 1000f;
         _lastBeat = 0;
         _nextBeatPosition = _beatDuration + Song.offset;
-        _nextBeatPosition += useInputOffset ? Song.offset : 0;
+        _nextBeatPosition += -useInputOffset ? Song.offset : 0;
     }
 
     public float NearestBeatOffset()
