@@ -29,15 +29,36 @@ public class Metronome : MonoBehaviour
         }
     }
     
-    private void InitializeValues()
+    public void InitializeValues(bool useInputOffset = true)
     {
         _beatDuration = 60f / Song.bpm * 1000f;
         _lastBeat = 0;
         _nextBeatPosition = _beatDuration + Song.offset;
+        _nextBeatPosition += useInputOffset ? Song.offset : 0;
+    }
+
+    public float NearestBeatOffset()
+    {
+        float previousBeatPosition = _nextBeatPosition - _beatDuration;
+        float position = audioSource.time * 1000f;
+        
+        float distanceToPrevious = position - previousBeatPosition;
+        float distanceToNext = _nextBeatPosition - position;
+
+        if (distanceToPrevious < distanceToNext)
+        {
+            return -distanceToPrevious;
+        }
+        else
+        {
+            return distanceToNext;
+        }
     }
 
     private void Update()
     {
+        if (!audioSource.isPlaying) return;
+        
         float position = audioSource.time * 1000f;
         if (position >= _nextBeatPosition)
         {
@@ -45,7 +66,7 @@ public class Metronome : MonoBehaviour
             _lastBeat = (_lastBeat + 1) % 4; // 0-indexed
             _lastBeatTimeoutPosition = _nextBeatPosition + margin;
             _nextBeatPosition += _beatDuration;
-            gameManager.OnBeat(_lastBeat);
+            gameManager?.OnBeat(_lastBeat);
         }
 
         if (position >= _lastBeatTimeoutPosition)

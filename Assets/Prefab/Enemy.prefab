@@ -56,7 +56,7 @@ MonoBehaviour:
   buildupMultiplier: 6
   uTurnHelper: 2
   speedBuildupTime: 10
-  enemyCenterAvoidance: 0.5
+  separationForce: 4
 --- !u!212 &5606521230885808795
 SpriteRenderer:
   m_ObjectHideFlags: 0

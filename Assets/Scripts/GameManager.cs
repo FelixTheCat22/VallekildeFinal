@@ -1,8 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+    
     public Song song;
     public Metronome metronome;
     public AudioSource audioSource;
@@ -10,24 +13,38 @@ public class GameManager : MonoBehaviour
     public Enemy enemyPrefab;
     
     public TMPro.TMP_Text beatText;
-
-    public Vector2 EnemyAvgPos {private set; get;}
     
     private List<Enemy> _enemies;
 
     private void Awake()
     {
+        if (!Instance)
+        {
+            Instance = this;
+        }
+        
         _enemies = new List<Enemy>();
+        //DontDestroyOnLoad(gameObject);
+        
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
     }
-    
-    private void Start()
+
+    public void StartGame()
     {
+        SceneManager.UnloadSceneAsync("MainMenu");
+        
         for (int i = 0; i < 5; i++)
         {
             SpawnEnemy();
         }
         
         StartSong();
+    }
+
+    private void Update()
+    {
+        // O(n), move out of update if possible
+        CleanEnemyList();
     }
     
     private void StartSong()
@@ -51,6 +68,11 @@ public class GameManager : MonoBehaviour
         enemy.player = player;
         enemy.gameManager = this;
         _enemies.Add(enemy);
+    }
+
+    private void CleanEnemyList()
+    {
+        _enemies.RemoveAll(e => !e);
     }
 
     public void OnBeat(int lastBeat) // Called by Metronome every beat

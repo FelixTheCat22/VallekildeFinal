@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     public float buildupMultiplier;
     public float uTurnHelper;
     public float speedBuildupTime;
-    public float enemyCenterAvoidance;
+    public float separationForce;
 
     private float _speedBuildup;
     private bool _pursuing = true;
@@ -78,11 +78,21 @@ public class Enemy : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        health--;
-        if (health <= 0)
+        if (other.CompareTag("Bullet"))
         {
-            Destroy(other.gameObject);
-            Destroy(gameObject);
+            health--;
+            if (health <= 0)
+            {
+                Destroy(other.gameObject);
+                Destroy(gameObject);
+            }
+            return;
         }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        Vector2 away =  transform.position - other.transform.position;
+        _rb.AddForce(away.normalized * separationForce);
     }
 }
