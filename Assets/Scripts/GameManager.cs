@@ -4,8 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
-    
     public Song song;
     public Metronome metronome;
     public AudioSource audioSource;
@@ -15,36 +13,38 @@ public class GameManager : MonoBehaviour
     public TMPro.TMP_Text beatText;
     
     private List<Enemy> _enemies;
+    private bool _gameOver = true;
 
     private void Awake()
     {
-        if (!Instance)
-        {
-            Instance = this;
-        }
-        
         _enemies = new List<Enemy>();
-        //DontDestroyOnLoad(gameObject);
-        
-        SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
     }
 
     public void StartGame()
     {
-        SceneManager.UnloadSceneAsync("MainMenu");
-        
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 2; i++)
         {
             SpawnEnemy();
         }
         
         StartSong();
+        
+        _gameOver = false;
     }
 
     private void Update()
     {
         // O(n), move out of update if possible
         CleanEnemyList();
+
+        if (_enemies.Count == 0 && !_gameOver)
+        {
+            // Win
+            _gameOver = true;
+            audioSource.Stop();
+            player.transform.position = new Vector3(0f, 0f, -1f);
+            AppManager.Instance.MainMenu();
+        }
     }
     
     private void StartSong()
@@ -78,10 +78,5 @@ public class GameManager : MonoBehaviour
     public void OnBeat(int lastBeat) // Called by Metronome every beat
     {
         beatText.text = lastBeat.ToString();
-
-        if (lastBeat == 0 && _enemies.Count < 8)
-        {
-            SpawnEnemy();
-        }
     }
 }

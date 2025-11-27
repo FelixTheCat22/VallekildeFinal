@@ -8,12 +8,17 @@ public class MenuButtons : MonoBehaviour
     
     public void StartGame()
     {
-        GameManager.Instance.StartGame();
+        AppManager.Instance.StartGame();
     }
 
     public void LoadCalibrator()
     {
-        SceneManager.LoadScene("Calibration");
+        AppManager.Instance.StartCalibrator();
+    }
+
+    public void QuitGame()
+    {
+        AppManager.Instance.QuitGame();
     }
 
     private void Update()

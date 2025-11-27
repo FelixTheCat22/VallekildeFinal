@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AppManager : MonoBehaviour
 {
@@ -10,6 +11,50 @@ public class AppManager : MonoBehaviour
     
     private void Awake()
     {
-        Instance = this;
+        if (!Instance)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void StartGame()
+    {
+        if (!SceneManager.GetSceneByName("MainGame").isLoaded)
+        {
+            SceneManager.LoadScene("MainGame");
+        }
+        SceneManager.UnloadSceneAsync("MainMenu");
+        GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        if (!gm)
+        {
+            Debug.LogError("GameManager not found. Maybe MainGame scene failed to load?");
+            return;
+        }
+        gm.StartGame();
+    }
+
+    public void StartCalibrator()
+    {
+        SceneManager.LoadScene("Calibration");
+    }
+
+    public void MainMenu()
+    {
+        if (!SceneManager.GetSceneByName("MainGame").isLoaded)
+        {
+            SceneManager.LoadScene("MainGame");
+        }
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
