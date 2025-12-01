@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _speedBuildup = Random.Range(0f, 0.5f);
+        _speedBuildup = Random.Range(0f, 0.7f);
     }
     
     private void FixedUpdate()
@@ -86,7 +86,6 @@ public class Enemy : MonoBehaviour
                 Destroy(other.gameObject);
                 Destroy(gameObject);
             }
-            return;
         }
     }
 

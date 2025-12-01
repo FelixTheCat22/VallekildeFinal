@@ -51,7 +51,7 @@ MonoBehaviour:
   cullMargin: 3
   rb: {fileID: 8355369237699813161}
   spriteRenderer: {fileID: 116687726499204198}
-  speed: 30
+  speed: 50
 --- !u!212 &116687726499204198
 SpriteRenderer:
   m_ObjectHideFlags: 0

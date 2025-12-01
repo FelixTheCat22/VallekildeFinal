@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MenuButtons : MonoBehaviour
 {
@@ -23,6 +22,8 @@ public class MenuButtons : MonoBehaviour
 
     private void Update()
     {
-        offsetText.text = AppManager.Instance.inputOffset + " ms";
+        offsetText.text = "Calibration: " + AppManager.Instance.inputOffset + " ms";
     }
+
+    
 }

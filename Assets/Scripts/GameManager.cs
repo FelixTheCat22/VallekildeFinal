@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public AudioSource audioSource;
     public Player player;
     public Enemy enemyPrefab;
+    public TMPro.TMP_Text healthText;
     
     public TMPro.TMP_Text beatText;
     
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 15; i++)
         {
             SpawnEnemy();
         }
@@ -34,15 +35,22 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        // O(n), move out of update if possible
+        // Has to iterate entire list each frame, move out of update if possible
         CleanEnemyList();
+
+        if (Input.GetKey(KeyCode.CapsLock))
+        {
+            // Implement pause later. For now it is basically a surrender
+            _gameOver = true;
+            ResetGame();
+            AppManager.Instance.MainMenu();
+        }
 
         if (_enemies.Count == 0 && !_gameOver)
         {
             // Win
             _gameOver = true;
-            audioSource.Stop();
-            player.transform.position = new Vector3(0f, 0f, -1f);
+            ResetGame();
             AppManager.Instance.MainMenu();
         }
     }
@@ -54,11 +62,23 @@ public class GameManager : MonoBehaviour
         audioSource.Play();
     }
 
+    private void ResetGame()
+    {
+        player.ResetHealth();
+        audioSource.Stop();
+        player.transform.position = new Vector3(0f, 0f, -1f);
+        foreach (Enemy enemy in _enemies)
+        {
+            Destroy(enemy.gameObject);
+            CleanEnemyList();
+        }
+    }
+
     private void SpawnEnemy()
     {
         float x = Random.Range(-1f, 1f);
         float y = Random.Range(-1f, 1f);
-        Vector3 pos = new Vector3(x, y, 0f).normalized * 7;
+        Vector3 pos = new Vector3(x, y, 0f).normalized * 9;
         SpawnEnemy(pos);
     }
     
@@ -77,6 +97,18 @@ public class GameManager : MonoBehaviour
 
     public void OnBeat(int lastBeat) // Called by Metronome every beat
     {
-        beatText.text = lastBeat.ToString();
+        beatText.text = "Debug | Beat: " + lastBeat;
+    }
+
+    public void OnPlayerHealthChanged()
+    {
+        healthText.text = "Health: " + player.Health;
+        if (player.Health <= 0)
+        {
+            // Lose
+            _gameOver = true;
+            ResetGame();
+            AppManager.Instance.MainMenu();
+        }
     }
 }
