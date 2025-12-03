@@ -117,15 +117,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   health: 1
+  collisionDamage: 1
   player: {fileID: 0}
-  gameManager: {fileID: 0}
   terminalVelocity: 15
   damping: 30
   forceMultiplier: 3
-  buildupMultiplier: 6
   uTurnHelper: 2
-  speedBuildupTime: 10
   separationForce: 4
+  canBuildUp: 1
+  buildupMultiplier: 6
+  speedBuildupTime: 10
+  breaksAway: 1
 --- !u!212 &5606521230885808795
 SpriteRenderer:
   m_ObjectHideFlags: 0

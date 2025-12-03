@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     public int startHealth;
     public float speed;
     public bool dashAvailable;
-    public float dashMultiplier;
+    public float dashDistance;
     public Bullet bulletPrefab;
     public Metronome metronome;
     public GameManager gameManager;
@@ -37,6 +37,16 @@ public class Player : MonoBehaviour
         {
             Shoot();
         }
+
+        if (_dashThisFrame && metronome.MaybeBeat != -1)
+        {
+            Dash();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        _rb.linearVelocity = _movementInput.normalized * speed;
     }
 
     private void ReadInput()
@@ -44,27 +54,24 @@ public class Player : MonoBehaviour
         _movementInput = new Vector2(Input.GetAxisRaw("MoveHorizontal"), Input.GetAxisRaw("MoveVertical"));
         _shootThisFrame = Input.GetButtonDown("ShootHorizontal") || Input.GetButtonDown("ShootVertical");
         _shootingInput = new Vector2(Input.GetAxisRaw("ShootHorizontal"), Input.GetAxisRaw("ShootVertical"));
-        if (Input.GetKeyDown(KeyCode.Space) && dashAvailable) // Hard-coded control, temp
-        {
-            _dashThisFrame = true;   
-        }
+        _dashThisFrame = Input.GetKeyDown(KeyCode.Space) && dashAvailable; // Hard-coded control, temp
     }
 
-    private void FixedUpdate()
+    private void Dash()
     {
-        _dashing = false;
-        float dash;
-        if (_dashThisFrame) // Feels very janky, but works
+        LayerMask wallMask = LayerMask.GetMask("Walls");
+        RaycastHit2D raycast = 
+            Physics2D.Raycast(transform.position, _movementInput, dashDistance, wallMask);
+
+        if (!raycast)
         {
-            _dashThisFrame = false;
-            dash = dashMultiplier;
-            _dashing = true;
+            transform.position += (Vector3) _movementInput * dashDistance;
         }
         else
         {
-            dash = 1f;
-        }
-        _rb.linearVelocity = _movementInput.normalized * (speed * dash);
+            // localScale.x should be equal to localScale.y for this to work as intended
+            transform.position += (Vector3) _movementInput * (raycast.distance - transform.localScale.x / 2);
+        } 
     }
 
     private void Shoot()
@@ -81,7 +88,7 @@ public class Player : MonoBehaviour
         */
     }
 
-    private void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         Health -= damage;
         gameManager.OnPlayerHealthChanged();
@@ -90,13 +97,5 @@ public class Player : MonoBehaviour
     public void ResetHealth()
     {
         TakeDamage(Health - startHealth);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!_dashing)
-        {
-            TakeDamage(1);
-        }
     }
 }

@@ -15,3 +15,8 @@ MonoBehaviour:
   audioClip: {fileID: 8300000, guid: f37fffd90f8196bb5bb6d998dcbaf0c4, type: 3}
   bpm: 130
   offset: 460
+  beatChange:
+    startTime: 59470
+    endTime: 73860
+    changeType: 0
+    change: 200

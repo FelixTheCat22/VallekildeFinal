@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public AudioSource audioSource;
     public Player player;
     public Enemy enemyPrefab;
+    public int enemySpawnCount;
     public TMPro.TMP_Text healthText;
     
     public TMPro.TMP_Text beatText;
@@ -21,9 +22,14 @@ public class GameManager : MonoBehaviour
         _enemies = new List<Enemy>();
     }
 
+    private void Start()
+    {
+        StartGame();
+    }
+
     public void StartGame()
     {
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < enemySpawnCount; i++)
         {
             SpawnEnemy();
         }
@@ -43,7 +49,7 @@ public class GameManager : MonoBehaviour
             // Implement pause later. For now it is basically a surrender
             _gameOver = true;
             ResetGame();
-            AppManager.Instance.MainMenu();
+            SceneManager.LoadScene("MainMenu");
         }
 
         if (_enemies.Count == 0 && !_gameOver)
@@ -51,7 +57,7 @@ public class GameManager : MonoBehaviour
             // Win
             _gameOver = true;
             ResetGame();
-            AppManager.Instance.MainMenu();
+            SceneManager.LoadScene("MainMenu");
         }
     }
     
@@ -86,7 +92,7 @@ public class GameManager : MonoBehaviour
     {
         Enemy enemy = Instantiate(enemyPrefab, position, Quaternion.identity);
         enemy.player = player;
-        enemy.gameManager = this;
+        //enemy.gameManager = this;
         _enemies.Add(enemy);
     }
 
@@ -108,7 +114,7 @@ public class GameManager : MonoBehaviour
             // Lose
             _gameOver = true;
             ResetGame();
-            AppManager.Instance.MainMenu();
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }

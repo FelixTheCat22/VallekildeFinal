@@ -23,7 +23,7 @@ public class Calibrator : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
-            AppManager.Instance.MainMenu();
+            SceneManager.LoadScene("MainMenu");
         }
         
         if (Input.GetKeyDown(KeyCode.Return))

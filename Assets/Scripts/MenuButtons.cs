@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuButtons : MonoBehaviour
 {
@@ -7,22 +8,22 @@ public class MenuButtons : MonoBehaviour
     
     public void StartGame()
     {
-        AppManager.Instance.StartGame();
+        SceneManager.LoadScene("MainGame");
     }
 
     public void LoadCalibrator()
     {
-        AppManager.Instance.StartCalibrator();
+        SceneManager.LoadScene("Calibration");
     }
 
     public void QuitGame()
     {
-        AppManager.Instance.QuitGame();
+        Application.Quit();
     }
 
     private void Update()
     {
-        offsetText.text = "Calibration: " + AppManager.Instance.inputOffset + " ms";
+        //offsetText.text = "Calibration: " + AppManager.Instance.inputOffset + " ms";
     }
 
     
