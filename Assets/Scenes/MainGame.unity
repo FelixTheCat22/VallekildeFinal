@@ -471,6 +471,8 @@ MonoBehaviour:
   speed: 10
   dashAvailable: 0
   dashDistance: 6
+  grapeshot: 1
+  grapeshotBulletCount: 3
   bulletPrefab: {fileID: 9217036224982919062, guid: 8e68722e6f93f5b448971fd3f13e2072, type: 3}
   metronome: {fileID: 1127719475}
   gameManager: {fileID: 1127719477}
@@ -1379,6 +1381,7 @@ MonoBehaviour:
   audioSource: {fileID: 673574163}
   gameManager: {fileID: 1127719477}
   margin: 80
+  beatCount: 0
 --- !u!4 &1127719476
 Transform:
   m_ObjectHideFlags: 0

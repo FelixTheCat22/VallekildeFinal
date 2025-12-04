@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     public float speed;
     public bool dashAvailable;
     public float dashDistance;
+    public bool grapeshot;
+    public int grapeshotBulletCount;
     public Bullet bulletPrefab;
     public Metronome metronome;
     public GameManager gameManager;
@@ -19,6 +21,7 @@ public class Player : MonoBehaviour
     private Vector2 _movementInput;
     private Vector2 _shootingInput;
     private bool _shootThisFrame;
+    private int _lastShotBeat;
     private bool _dashThisFrame;
 
     private Rigidbody2D _rb;
@@ -33,8 +36,9 @@ public class Player : MonoBehaviour
     {
         ReadInput();
         
-        if (_shootThisFrame && metronome.MaybeBeat != -1)
+        if (_shootThisFrame && metronome.MaybeBeat != -1 && _lastShotBeat != metronome.beatCount)
         {
+            _lastShotBeat = metronome.beatCount;
             Shoot();
         }
 
@@ -76,16 +80,32 @@ public class Player : MonoBehaviour
 
     private void Shoot()
     {
-        Vector3 spawnPosition = transform.position + Vector3.forward * 0.5f; //Bullets are 0.5 units behind player
-        Bullet bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
-        bullet.mainCamera = _camera;
-        bullet.rb.linearVelocity = (_shootingInput * bullet.speed);  // + _rb.linearVelocity;
-        /*
-        if (metronome.MaybeBeat != -1)
+        int bulletCount = grapeshot ? grapeshotBulletCount : 1;
+        float rotationAngle = (90f / grapeshotBulletCount) / 2f;
+
+        for (int i = 0; i < bulletCount; i++)
         {
-            bullet.spriteRenderer.color = Color.blue;
+            Vector3 spawnPosition = transform.position + Vector3.forward * 0.5f; //Bullets are 0.5 units behind player
+            Bullet bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
+            bullet.mainCamera = _camera;
+            bullet.rb.linearVelocity = (
+                RotateVec2(_shootingInput, rotationAngle * (i + 1))
+                * bullet.speed
+                // + _rb.linearVelocity
+                );
         }
-        */
+    }
+
+    private Vector2 RotateVec2(Vector2 v, float degrees)
+    {
+        float rad = degrees * Mathf.Deg2Rad;
+        float cos = Mathf.Cos(rad);
+        float sin = Mathf.Sin(rad);
+
+        return new Vector2(
+            v.x * cos - v.y * sin,
+            v.y * sin + v.x * cos
+            );
     }
 
     public void TakeDamage(int damage)
