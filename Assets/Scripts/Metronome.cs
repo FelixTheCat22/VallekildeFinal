@@ -4,12 +4,29 @@ public class Metronome : MonoBehaviour
 {
     // Time is in milliseconds
     
+    public static Metronome Instance;
+    
     public AudioSource audioSource;
-    public GameManager gameManager;
     [Tooltip("Margin on error on either side of the beat, in ms")]
     public int margin;
     public int MaybeBeat { get; private set; } // -1 when not valid timing
-    public int beatCount;
+    public int BeatCounter { get ; private set;}
+
+    public delegate void OnBeat(int lastBeat);
+    public event OnBeat onBeat;
+
+    public int NearedBeatCounter
+    {
+        get
+        {
+            float nboffset = NearestBeatOffset();
+            if (nboffset < 0)
+            {
+                return BeatCounter - 1;
+            }
+            return BeatCounter;
+        }
+    }
 
     private Song _song;
     private float _beatDuration;
@@ -25,19 +42,33 @@ public class Metronome : MonoBehaviour
             InitializeValues();
         }
     }
+
+    private void Awake()
+    {
+        if (!Instance)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     
     public void InitializeValues(bool useInputOffset = true)
     {
-        beatCount = 0;
+        BeatCounter = 0;
         _beatDuration = 60f / Song.bpm * 1000f;
         _lastBeat = 0;
         _nextBeatPosition = _beatDuration + Song.offset;
         float inputOffset = useInputOffset ? 
-            !AppManager.Instance ? 60 : AppManager.Instance.inputOffset 
+            !AppManager.Instance ? -60 : AppManager.Instance.inputOffset 
             : 0;
-        _nextBeatPosition += inputOffset;
+        _nextBeatPosition -= inputOffset;
     }
 
+    // Negative if just after beat, positive if just before beat
     public float NearestBeatOffset()
     {
         float previousBeatPosition = _nextBeatPosition - _beatDuration;
@@ -67,8 +98,8 @@ public class Metronome : MonoBehaviour
             _lastBeat = (_lastBeat + 1) % 4; // 0-indexed
             _lastBeatTimeoutPosition = _nextBeatPosition + margin;
             _nextBeatPosition += _beatDuration;
-            beatCount++;
-            gameManager?.OnBeat(_lastBeat);
+            BeatCounter++;
+            onBeat?.Invoke(_lastBeat);
         }
 
         if (position >= _lastBeatTimeoutPosition)

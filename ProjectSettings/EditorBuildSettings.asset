@@ -14,6 +14,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Calibration.unity
     guid: fbe0cdf16daae9937875dffe7a1c6fd1
+  - enabled: 1
+    path: Assets/Scenes/LevelShared.unity
+    guid: 2e0755bbff4bee5d584fa74709cb23b3
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level1.unity
+    guid: ea377852c943c3cbcb65fefbcf31766a
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level3.unity
+    guid: 5d80a7101510346688e78473066fde07
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

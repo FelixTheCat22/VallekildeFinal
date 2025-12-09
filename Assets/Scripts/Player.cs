@@ -9,12 +9,12 @@ public class Player : MonoBehaviour
     public bool dashAvailable;
     public float dashDistance;
     public bool grapeshot;
-    public int grapeshotBulletCount;
     public Bullet bulletPrefab;
-    public Metronome metronome;
     public GameManager gameManager;
+    public ArcadeInputType dashButton;
 
     public int Health {private set; get;}
+    //public int OffBeatInputs {private set; get;}
 
     private bool _dashing;
     private Camera _camera;
@@ -28,24 +28,41 @@ public class Player : MonoBehaviour
     private void Awake()
     {   
         _rb = GetComponent<Rigidbody2D>();
-        _camera = Camera.main;
+        _camera = Camera.current;
         Health = startHealth;
     }
 
     private void Update()
     {
         ReadInput();
-        
-        if (_shootThisFrame && metronome.MaybeBeat != -1 && _lastShotBeat != metronome.beatCount)
+
+        int nearestBeat = Metronome.Instance.NearedBeatCounter;
+        if (_shootThisFrame && Metronome.Instance.MaybeBeat != -1 && _lastShotBeat != nearestBeat)
         {
-            _lastShotBeat = metronome.beatCount;
-            Shoot();
+            _lastShotBeat = nearestBeat;
+            if (!grapeshot)
+            {
+                Shoot();
+            }
+            else
+            {
+                Shoot();
+                Shoot(45);
+                Shoot(-45);
+            }
         }
 
-        if (_dashThisFrame && metronome.MaybeBeat != -1)
+        if (_dashThisFrame && Metronome.Instance.MaybeBeat != -1 && dashAvailable)
         {
             Dash();
         }
+
+        /*
+        if ((_dashThisFrame || _shootThisFrame) && metronome.MaybeBeat == -1)
+        {
+            OffBeatInputs++;
+        }
+        */
     }
 
     private void FixedUpdate()
@@ -55,10 +72,18 @@ public class Player : MonoBehaviour
 
     private void ReadInput()
     {
-        _movementInput = new Vector2(Input.GetAxisRaw("MoveHorizontal"), Input.GetAxisRaw("MoveVertical"));
-        _shootThisFrame = Input.GetButtonDown("ShootHorizontal") || Input.GetButtonDown("ShootVertical");
-        _shootingInput = new Vector2(Input.GetAxisRaw("ShootHorizontal"), Input.GetAxisRaw("ShootVertical"));
-        _dashThisFrame = Input.GetKeyDown(KeyCode.Space) && dashAvailable; // Hard-coded control, temp
+        _movementInput = ArcadeInput.GetAxises(1);
+        _shootThisFrame = JoystickInitiated(2);
+        _shootingInput = ArcadeInput.GetAxises(2);
+        _dashThisFrame = ArcadeInput.InputInitiated(2, dashButton);
+    }
+
+    private bool JoystickInitiated(int player)
+    {
+        return ArcadeInput.InputInitiated(player, ArcadeInputType.JoystickUp)
+            || ArcadeInput.InputInitiated(player, ArcadeInputType.JoystickDown)
+            || ArcadeInput.InputInitiated(player, ArcadeInputType.JoystickRight)
+            || ArcadeInput.InputInitiated(player, ArcadeInputType.JoystickLeft);
     }
 
     private void Dash()
@@ -80,20 +105,24 @@ public class Player : MonoBehaviour
 
     private void Shoot()
     {
-        int bulletCount = grapeshot ? grapeshotBulletCount : 1;
-        float rotationAngle = (90f / grapeshotBulletCount) / 2f;
-
-        for (int i = 0; i < bulletCount; i++)
-        {
-            Vector3 spawnPosition = transform.position + Vector3.forward * 0.5f; //Bullets are 0.5 units behind player
-            Bullet bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
-            bullet.mainCamera = _camera;
-            bullet.rb.linearVelocity = (
-                RotateVec2(_shootingInput, rotationAngle * (i + 1))
-                * bullet.speed
-                // + _rb.linearVelocity
-                );
-        }
+        Vector3 spawnPosition = transform.position + Vector3.forward * 0.5f; //Bullets are 0.5 units behind player
+        Bullet bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
+        bullet.rb.linearVelocity =
+            _shootingInput
+            * bullet.speed
+            // + _rb.linearVelocity
+            ;
+    }
+    
+    private void Shoot(float angle)
+    {
+        Vector3 spawnPosition = transform.position + Vector3.forward * 0.5f; //Bullets are 0.5 units behind player
+        Bullet bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
+        bullet.rb.linearVelocity = (
+            RotateVec2(_shootingInput, angle)
+            * bullet.speed
+            // + _rb.linearVelocity
+            );
     }
 
     private Vector2 RotateVec2(Vector2 v, float degrees)
@@ -104,7 +133,7 @@ public class Player : MonoBehaviour
 
         return new Vector2(
             v.x * cos - v.y * sin,
-            v.y * sin + v.x * cos
+            v.x * sin + v.y * cos
             );
     }
 

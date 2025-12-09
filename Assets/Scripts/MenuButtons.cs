@@ -8,7 +8,7 @@ public class MenuButtons : MonoBehaviour
     
     public void StartGame()
     {
-        SceneManager.LoadScene("MainGame");
+        AppManager.Instance.StartFirstLevel();
     }
 
     public void LoadCalibrator()
@@ -23,7 +23,7 @@ public class MenuButtons : MonoBehaviour
 
     private void Update()
     {
-        //offsetText.text = "Calibration: " + AppManager.Instance.inputOffset + " ms";
+        offsetText.text = "Calibration: " + AppManager.Instance.inputOffset + " ms";
     }
 
     

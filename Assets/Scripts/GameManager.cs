@@ -5,36 +5,47 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public Song song;
-    public Metronome metronome;
-    public AudioSource audioSource;
     public Player player;
-    public Enemy enemyPrefab;
-    public int enemySpawnCount;
-    public TMPro.TMP_Text healthText;
-    
-    public TMPro.TMP_Text beatText;
-    
+    public EnemySpawnDescriptor[] enemySpawns;
+
+    public bool Running { private set; get; }
+
+    private AudioSource _audioSource;
     private List<Enemy> _enemies;
     private bool _gameOver = true;
 
     private void Awake()
     {
+        Metronome.Instance.onBeat += OnBeat;
+        _audioSource = Metronome.Instance.audioSource;
         _enemies = new List<Enemy>();
+        Enemy[] presetEnemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
+        foreach (Enemy presetEnemy in presetEnemies)
+        {
+            _enemies.Add(presetEnemy);
+        }
+        //Debug.Log(_enemies.Count);
+    }
+
+    private void OnDestroy()
+    {
+        Metronome.Instance.onBeat -= OnBeat;
     }
 
     private void Start()
     {
+        OnPlayerHealthChanged(); // Update health display
+        
         StartGame();
     }
 
     public void StartGame()
     {
-        for (int i = 0; i < enemySpawnCount; i++)
-        {
-            SpawnEnemy();
-        }
+        SpawnEnemies();
         
         StartSong();
+
+        Running = true;
         
         _gameOver = false;
     }
@@ -47,50 +58,64 @@ public class GameManager : MonoBehaviour
         if (Input.GetKey(KeyCode.CapsLock))
         {
             // Implement pause later. For now it is basically a surrender
-            _gameOver = true;
-            ResetGame();
-            SceneManager.LoadScene("MainMenu");
+            EndGame(false);
         }
 
         if (_enemies.Count == 0 && !_gameOver)
         {
             // Win
-            _gameOver = true;
-            ResetGame();
-            SceneManager.LoadScene("MainMenu");
+            EndGame(true);
         }
     }
     
     private void StartSong()
     {
-        metronome.Song = song;
-        audioSource.clip = song.audioClip;
-        audioSource.Play();
+        Metronome.Instance.Song = song;
+        _audioSource.clip = song.audioClip;
+        _audioSource.Play();
     }
 
-    private void ResetGame()
+    private void EndGame(bool playerWon)
     {
-        player.ResetHealth();
-        audioSource.Stop();
-        player.transform.position = new Vector3(0f, 0f, -1f);
-        foreach (Enemy enemy in _enemies)
+        if (playerWon)
         {
-            Destroy(enemy.gameObject);
-            CleanEnemyList();
+            AppManager.Instance.NextLevel();
+        }
+        else
+        {
+            SceneManager.LoadScene("MainMenu");
         }
     }
-
-    private void SpawnEnemy()
+    
+    private void SpawnEnemies()
+    {
+        foreach (EnemySpawnDescriptor enemySpawn in enemySpawns)
+        {
+            for (int i = 0; i < enemySpawn.count; i++)
+            {
+                if (enemySpawn.randomSpawn)
+                {
+                    SpawnEnemy(enemySpawn.prefab, enemySpawn.randomSpawnRadius);
+                }
+                else
+                {
+                    SpawnEnemy(enemySpawn.prefab, enemySpawn.position);
+                }
+            }
+        }
+    }
+    
+    private void SpawnEnemy(Enemy prefab, float radius)
     {
         float x = Random.Range(-1f, 1f);
         float y = Random.Range(-1f, 1f);
-        Vector3 pos = new Vector3(x, y, 0f).normalized * 9;
-        SpawnEnemy(pos);
+        Vector3 pos = new Vector3(x, y, 0f).normalized * radius;
+        SpawnEnemy(prefab, pos);
     }
     
-    private void SpawnEnemy(Vector3 position)
+    private void SpawnEnemy(Enemy prefab, Vector3 position)
     {
-        Enemy enemy = Instantiate(enemyPrefab, position, Quaternion.identity);
+        Enemy enemy = Instantiate(prefab, position, Quaternion.identity);
         enemy.player = player;
         //enemy.gameManager = this;
         _enemies.Add(enemy);
@@ -103,18 +128,29 @@ public class GameManager : MonoBehaviour
 
     public void OnBeat(int lastBeat) // Called by Metronome every beat
     {
-        beatText.text = "Debug | Beat: " + lastBeat;
+        UIManager.Instance.beatText.text = "Debug | Beat: " + lastBeat;
     }
 
     public void OnPlayerHealthChanged()
     {
-        healthText.text = "Health: " + player.Health;
+        UIManager.Instance.healthText.text = "Health: " + player.Health;
         if (player.Health <= 0)
         {
             // Lose
-            _gameOver = true;
-            ResetGame();
-            SceneManager.LoadScene("MainMenu");
+            EndGame(false);
         }
     }
+}
+
+[System.Serializable]
+public class EnemySpawnDescriptor
+{
+    public int count = 1;
+    public Enemy prefab;
+    public bool randomSpawn;
+    [Tooltip("Ignored if Random Spawn is false")]
+    public float randomSpawnRadius;
+    [Tooltip("Ignored if Random Spawn is true")]
+    public Vector2 position;
+    
 }

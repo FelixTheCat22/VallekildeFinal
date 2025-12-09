@@ -4,33 +4,39 @@ using UnityEngine.SceneManagement;
 
 public class Calibrator : MonoBehaviour
 {
-    public AudioSource audioSource;
-    public Metronome metronome;
     public Song calibrationSong;
     public TMPro.TMP_Text offsetText;
-    
+    public ArcadeInputType exitCalibrator;
+
+    private AudioSource _audioSource;
     private List<float> _offsets = new List<float>();
 
+    private void Awake()
+    {
+        _audioSource = Metronome.Instance.audioSource;
+    }
+    
     void Start()
     {
-        metronome.Song = calibrationSong;
-        metronome.InitializeValues(false);
-        audioSource.clip = calibrationSong.audioClip;
-        audioSource.Play();
+        Metronome.Instance.Song = calibrationSong;
+        Metronome.Instance.InitializeValues(false);
+        _audioSource.clip = calibrationSong.audioClip;
+        _audioSource.Play();
     }
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        if (ArcadeInput.InputInitiated(0, exitCalibrator))
         {
             SceneManager.LoadScene("MainMenu");
+            return;
         }
         
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (ArcadeInput.AnyInputInitiated(0))
         {
-            float offset = metronome.NearestBeatOffset();
+            float offset = Metronome.Instance.NearestBeatOffset();
             _offsets.Add(offset);
-            Debug.Log(offset);
+            //Debug.Log(offset);
         }
         
         float averageOffset = AverageOffset();

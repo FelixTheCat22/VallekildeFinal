@@ -11,13 +11,17 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("Bullet"))
         {
-            Destroy(other.gameObject);
-            
-            health--;
+            if (other.enabled)
+            {
+                health--;
+            }
+            other.enabled = false;
+
             if (health <= 0)
             {
                 Destroy(gameObject);
             }
+            Destroy(other.gameObject);
         }
 
         if (other.gameObject == player.gameObject)
