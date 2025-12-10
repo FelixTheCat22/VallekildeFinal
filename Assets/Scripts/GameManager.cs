@@ -70,9 +70,7 @@ public class GameManager : MonoBehaviour
     
     private void StartSong()
     {
-        Metronome.Instance.Song = song;
-        _audioSource.clip = song.audioClip;
-        _audioSource.Play();
+        AppManager.Instance.PlaySong(song);
     }
 
     private void EndGame(bool playerWon)

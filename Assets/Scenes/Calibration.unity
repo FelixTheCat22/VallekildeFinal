@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   calibrationSong: {fileID: 11400000, guid: 3849fa96e52994a378eadc30094cf714, type: 2}
   offsetText: {fileID: 1287582290}
-  exitCalibrator: 0
+  exitCalibrator: 9
 --- !u!4 &187937776
 Transform:
   m_ObjectHideFlags: 0

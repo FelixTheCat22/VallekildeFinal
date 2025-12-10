@@ -1301,7 +1301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 944431884c89682f68691d57fb609745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AppManager
-  inputOffset: 0
+  inputOffset: -20
   levels:
   - {fileID: 11400000, guid: 7f4c36cf53a41452fa5300619cf1160d, type: 2}
   - {fileID: 11400000, guid: 5e4fa2c1a39d6a6e485c5f72e1ad5a0f, type: 2}

@@ -8,20 +8,11 @@ public class Calibrator : MonoBehaviour
     public TMPro.TMP_Text offsetText;
     public ArcadeInputType exitCalibrator;
 
-    private AudioSource _audioSource;
     private List<float> _offsets = new List<float>();
-
-    private void Awake()
-    {
-        _audioSource = Metronome.Instance.audioSource;
-    }
     
     void Start()
     {
-        Metronome.Instance.Song = calibrationSong;
-        Metronome.Instance.InitializeValues(false);
-        _audioSource.clip = calibrationSong.audioClip;
-        _audioSource.Play();
+        AppManager.Instance.PlaySong(calibrationSong, false);
     }
     
     void Update()
