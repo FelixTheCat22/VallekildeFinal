@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Level2
   m_EditorClassIdentifier: Assembly-CSharp::Level
   levelSceneName: Level2
-  levelPrettyName: Level 3
+  levelPrettyName: Level 2
+  randomSong: 1
+  song: {fileID: 0}

@@ -1,6 +1,8 @@
 using UnityEngine;
 
-public class AbilityPickup : Pickup
+
+[CreateAssetMenu(fileName = "AbilityPickup", menuName = "Scriptable Objects/PickupTypes/AbilityPickup")]
+public class AbilityPickup : PickupType
 {
     public Ability ability;
     
@@ -10,7 +12,7 @@ public class AbilityPickup : Pickup
         Grapeshot
     }
     
-    protected override void OnPickup(Player player)
+    public override void OnPickup(Player player)
     {
         switch (ability)
         {
@@ -18,7 +20,7 @@ public class AbilityPickup : Pickup
                 player.dashAvailable = true;
                 break;
             case Ability.Grapeshot:
-                Debug.Log("Unimplemented grapeshot");
+                player.grapeshot = true;
                 break;
         }
     }

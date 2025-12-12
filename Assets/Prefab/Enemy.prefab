@@ -119,6 +119,10 @@ MonoBehaviour:
   health: 1
   collisionDamage: 1
   player: {fileID: 0}
+  killScoreValue: 10
+  destroyBullet: 1
+  killable: 1
+  gameManager: {fileID: 0}
   terminalVelocity: 15
   damping: 30
   forceMultiplier: 3

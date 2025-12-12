@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-        if (((Vector2)transform.position - _origin).sqrMagnitude < cullDistance * cullDistance)
+        if (((Vector2)transform.position - _origin).sqrMagnitude > cullDistance * cullDistance)
         {
             Cull();
         } 

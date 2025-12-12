@@ -1,8 +1,17 @@
 using System;
 using UnityEngine;
 
-public abstract class Pickup : MonoBehaviour
+[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(SpriteRenderer))]
+public class Pickup : MonoBehaviour
 {
+    public PickupType pickupType;
+
+    private void Awake()
+    {
+        GetComponent<SpriteRenderer>().sprite = pickupType.sprite;
+    }
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         Player player = other.GetComponent<Player>();
@@ -12,9 +21,7 @@ public abstract class Pickup : MonoBehaviour
             return;
         }
         
-        OnPickup(player);
+        pickupType.OnPickup(player);
         Destroy(gameObject);
     }
-
-    protected abstract void OnPickup(Player player);
 }

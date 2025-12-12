@@ -6,6 +6,10 @@ public class Enemy : MonoBehaviour
     public int health;
     public int collisionDamage;
     public Player player;
+    public int killScoreValue;
+    public bool destroyBullet = true;
+    public bool killable = true;
+    public GameManager gameManager;
     
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -15,13 +19,18 @@ public class Enemy : MonoBehaviour
             {
                 health--;
             }
-            other.enabled = false;
 
-            if (health <= 0)
+            if (health <= 0 && killable)
             {
+                AppManager.Instance.IncreaseScore(killScoreValue);
                 Destroy(gameObject);
             }
-            Destroy(other.gameObject);
+
+            if (destroyBullet)
+            {
+                other.enabled = false;
+                Destroy(other.gameObject);
+            }
         }
 
         if (other.gameObject == player.gameObject)

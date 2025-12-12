@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: HireMe
   m_EditorClassIdentifier: Assembly-CSharp::SongObject
   title: Hire Me!
-  artist: Yellowlikerr ft. Kasane Teto
+  artist: Yellowlikerr
   cover: {fileID: 21300000, guid: 392ed5e6eee3779dab590f28e337255f, type: 3}
   audioClip: {fileID: 8300000, guid: 40a5bf9935418d29aa482673737dc6f2, type: 3}
+  loop: 1
   bpm: 183
   offset: 0
+  levelStartTime: 0

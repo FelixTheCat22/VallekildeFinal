@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -17,26 +16,27 @@ public class Player : MonoBehaviour
     //public int OffBeatInputs {private set; get;}
 
     private bool _dashing;
-    private Camera _camera;
     private Vector2 _movementInput;
     private Vector2 _shootingInput;
     private bool _shootThisFrame;
     private int _lastShotBeat;
     private bool _dashThisFrame;
+    private int _lastDashBeat;
 
     private Rigidbody2D _rb;
     private void Awake()
     {   
         _rb = GetComponent<Rigidbody2D>();
-        _camera = Camera.current;
         Health = startHealth;
     }
 
     private void Update()
     {
+        if (!gameManager.Running) return;
+        
         ReadInput();
 
-        int nearestBeat = Metronome.Instance.NearedBeatCounter;
+        int nearestBeat = Metronome.Instance.NearestBeatCounter;
         if (_shootThisFrame && Metronome.Instance.MaybeBeat != -1 && _lastShotBeat != nearestBeat)
         {
             _lastShotBeat = nearestBeat;
@@ -52,17 +52,21 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (_dashThisFrame && Metronome.Instance.MaybeBeat != -1 && dashAvailable)
+        if (_dashThisFrame && Metronome.Instance.MaybeBeat != -1 && dashAvailable && _lastDashBeat != nearestBeat)
         {
+            _lastDashBeat = nearestBeat;
             Dash();
         }
 
-        /*
-        if ((_dashThisFrame || _shootThisFrame) && metronome.MaybeBeat == -1)
+        if ((_dashThisFrame || _shootThisFrame) && Metronome.Instance.MaybeBeat == -1)
         {
-            OffBeatInputs++;
+            AppManager.Instance.OnBeatMiss();
         }
-        */
+
+        if (_lastDashBeat < nearestBeat - 1 || _lastShotBeat < nearestBeat - 1)
+        {
+            AppManager.Instance.OnBeatMiss();
+        }
     }
 
     private void FixedUpdate()
@@ -73,8 +77,8 @@ public class Player : MonoBehaviour
     private void ReadInput()
     {
         _movementInput = ArcadeInput.GetAxises(1);
-        _shootThisFrame = JoystickInitiated(2);
         _shootingInput = ArcadeInput.GetAxises(2);
+        _shootThisFrame = JoystickInitiated(2);
         _dashThisFrame = ArcadeInput.InputInitiated(2, dashButton);
     }
 

@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Killswitch
   m_EditorClassIdentifier: Assembly-CSharp::Song
   title: KILLSWITCH
-  artist: mekaloton ft. Kasane Teto
+  artist: mekaloton
   cover: {fileID: 21300000, guid: 6ef38ea1ff6038d4e831c193ea37e0d2, type: 3}
   audioClip: {fileID: 8300000, guid: f37fffd90f8196bb5bb6d998dcbaf0c4, type: 3}
+  loop: 1
   bpm: 130
   offset: 460
+  levelStartTime: 0

@@ -15,7 +15,7 @@ public class Metronome : MonoBehaviour
     public delegate void OnBeat(int lastBeat);
     public event OnBeat onBeat;
 
-    public int NearedBeatCounter
+    public int NearestBeatCounter
     {
         get
         {

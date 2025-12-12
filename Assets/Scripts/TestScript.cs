@@ -3,31 +3,40 @@ using UnityEngine;
 public class TestScript : MonoBehaviour
 {
     public AudioSource audioSource;
-    
-    public TMPro.TMP_Text dspText;
-    public TMPro.TMP_Text timeText;
+    private int _frameCounter;
+    private double _dspTimeMusicStart;
+    private float _lastTime;
+    private float _avgDelay;
+    private int _measurementCount;
+    private float _delayTotal;
 
+    void Start()
+    {
+        audioSource.Play();
+    }
+    
     void Update()
     {
-        Debug.Log("dsp:  " + AudioSettings.dspTime + "\ntime: " + audioSource.time);
-
-        dspText.text = "dsp: " + AudioSettings.dspTime;
-        timeText.text = "time: " + audioSource.time;
-
-        if (Input.GetKeyDown(KeyCode.Return))
+        float currTime = audioSource.time;
+        if (currTime > _lastTime)
         {
-            audioSource.Stop();
-            audioSource.Play();
+            _measurementCount++;
+            _delayTotal += currTime - _lastTime;
+            _lastTime = currTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if ((_frameCounter & 0x0f) == 0)
         {
-            if (audioSource.isPlaying) {
-                audioSource.Pause();
-            } else
-            {
-                audioSource.Play();
-            }
+            Debug.Log((_delayTotal/_measurementCount) - Time.deltaTime);
         }
+        
+        /*
+        _frameCounter++;
+        Debug.Log("Frame: " + _frameCounter);
+        Debug.Log("DeltaTime: " + Time.deltaTime);
+        Debug.Log("Time: " + audioSource.time);
+        Debug.Log("TimeSamples: " +  (float) audioSource.timeSamples / audioSource.clip.frequency);
+        Debug.Log("dspTime: " + (AudioSettings.dspTime - _dspTimeMusicStart));
+        */
     }
 }

@@ -7,6 +7,8 @@ public class Song : ScriptableObject
     public string artist;
     public Sprite cover;
     public AudioClip audioClip;
+    public bool loop;
     public float bpm;
     public float offset;
+    public float levelStartTime;
 }

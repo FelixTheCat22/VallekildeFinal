@@ -1,9 +1,5 @@
-using System;
 using UnityEngine;
-using TMPro;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
-using XNode.Examples;
 
 public class PanelController : MonoBehaviour
 {
@@ -50,7 +46,10 @@ public class PanelController : MonoBehaviour
 
     private void Update()
     {
-        UpdateVisualizer();
+        if (audioSource?.isPlaying ?? false)
+        {
+            UpdateVisualizer();
+        }
     }
 
     private void OnDestroy()
@@ -83,6 +82,20 @@ public class PanelController : MonoBehaviour
         artistText.text.text = song.artist;
         artistText.Initialize();
         coverImage.sprite = song.cover;
+
+        if (titleText.overflowing && artistText.overflowing)
+        {
+            float titleLongerThanArtist = ((titleText.textWidth + titleText.margin) / titleText.speed)
+                                          - ((artistText.textWidth+ artistText.margin) / artistText.speed);
+            if (titleLongerThanArtist >= 0)
+            {
+                artistText.waitTime += titleLongerThanArtist;
+            }
+            else
+            {
+                titleText.waitTime += -titleLongerThanArtist;
+            }
+        }
     }
 
     public void InitializeVisualizer()

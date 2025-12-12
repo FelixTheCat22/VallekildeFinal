@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 428100052}
+    - target: {fileID: 322909035028477021, guid: 127c5b3b17514f3fba327207e6efc359, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 281542080}
     - target: {fileID: 7627516130214555439, guid: 127c5b3b17514f3fba327207e6efc359, type: 3}
       propertyPath: m_LocalPosition.x
       value: -14.246881
@@ -620,7 +624,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c5ad1b8d8e7e388b9eb4b02b4647a4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  song: {fileID: 11400000, guid: 3849fa96e52994a378eadc30094cf714, type: 2}
   player: {fileID: 428100052}
   enemySpawns:
   - count: 16
@@ -666,6 +669,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 428100052}
+    - target: {fileID: 322909035028477021, guid: 127c5b3b17514f3fba327207e6efc359, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 281542080}
     - target: {fileID: 7627516130214555439, guid: 127c5b3b17514f3fba327207e6efc359, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.623947
@@ -727,6 +734,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 428100052}
+    - target: {fileID: 322909035028477021, guid: 127c5b3b17514f3fba327207e6efc359, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 281542080}
     - target: {fileID: 7627516130214555439, guid: 127c5b3b17514f3fba327207e6efc359, type: 3}
       propertyPath: m_LocalPosition.x
       value: -14.846699
@@ -823,6 +834,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 428100052}
+    - target: {fileID: 322909035028477021, guid: 127c5b3b17514f3fba327207e6efc359, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 281542080}
     - target: {fileID: 7627516130214555439, guid: 127c5b3b17514f3fba327207e6efc359, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.120691
@@ -884,6 +899,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 428100052}
+    - target: {fileID: 322909035028477021, guid: 127c5b3b17514f3fba327207e6efc359, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 281542080}
     - target: {fileID: 7627516130214555439, guid: 127c5b3b17514f3fba327207e6efc359, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.5655365
@@ -1082,6 +1101,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 428100052}
+    - target: {fileID: 322909035028477021, guid: 127c5b3b17514f3fba327207e6efc359, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 281542080}
     - target: {fileID: 7627516130214555439, guid: 127c5b3b17514f3fba327207e6efc359, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.084141

@@ -47,11 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c01d745c35c369b7f988a0d1eecbc1d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  mainCamera: {fileID: 0}
-  cullMargin: 3
   rb: {fileID: 8355369237699813161}
   spriteRenderer: {fileID: 116687726499204198}
   speed: 70
+  cullDistance: 70
 --- !u!212 &116687726499204198
 SpriteRenderer:
   m_ObjectHideFlags: 0

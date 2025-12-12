@@ -6,6 +6,8 @@ public class Level : ScriptableObject
 {
     public string levelSceneName;
     public string levelPrettyName;
+    public bool randomSong;
+    public Song song;
 
     public void Load()
     {

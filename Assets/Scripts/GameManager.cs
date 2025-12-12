@@ -4,20 +4,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public Song song;
     public Player player;
     public EnemySpawnDescriptor[] enemySpawns;
 
     public bool Running { private set; get; }
 
-    private AudioSource _audioSource;
     private List<Enemy> _enemies;
     private bool _gameOver = true;
 
     private void Awake()
     {
         Metronome.Instance.onBeat += OnBeat;
-        _audioSource = Metronome.Instance.audioSource;
         _enemies = new List<Enemy>();
         Enemy[] presetEnemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
         foreach (Enemy presetEnemy in presetEnemies)
@@ -42,16 +39,20 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         SpawnEnemies();
-        
-        StartSong();
 
-        Running = true;
+        AppManager.Instance.PlayCurrentLevelSong();
         
         _gameOver = false;
     }
 
     private void Update()
     {
+        if (!Running && !_gameOver &&
+            Metronome.Instance.audioSource.time > AppManager.Instance.CurrentLevel.song.levelStartTime)
+        {
+            Running = true;
+        }
+        
         // Has to iterate entire list each frame, move out of update if possible
         CleanEnemyList();
 
@@ -68,13 +69,10 @@ public class GameManager : MonoBehaviour
         }
     }
     
-    private void StartSong()
-    {
-        AppManager.Instance.PlaySong(song);
-    }
-
     private void EndGame(bool playerWon)
     {
+        _gameOver = true;
+        Running = false;
         if (playerWon)
         {
             AppManager.Instance.NextLevel();
@@ -115,7 +113,7 @@ public class GameManager : MonoBehaviour
     {
         Enemy enemy = Instantiate(prefab, position, Quaternion.identity);
         enemy.player = player;
-        //enemy.gameManager = this;
+        enemy.gameManager = this;
         _enemies.Add(enemy);
     }
 

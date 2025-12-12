@@ -18,7 +18,7 @@ public class PhysicsEnemy : Enemy
     private float _speedBuildup;
     private bool _pursuing = true;
 
-    private Rigidbody2D _rb;
+    protected Rigidbody2D _rb;
 
     private void Awake()
     {
@@ -26,8 +26,10 @@ public class PhysicsEnemy : Enemy
         _speedBuildup = Random.Range(0f, 0.7f);
     }
     
-    private void FixedUpdate()
+    protected void FixedUpdate()
     {
+        if (!gameManager.Running) return;
+        
         if (!_pursuing)
         {
             _rb.AddForce(-_rb.linearVelocity.normalized * forceMultiplier / 2);
@@ -86,7 +88,7 @@ public class PhysicsEnemy : Enemy
         _pursuing = true;
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    protected void OnTriggerStay2D(Collider2D other)
     {
         Vector2 away =  transform.position - other.transform.position;
         _rb.AddForce(away.normalized * separationForce);

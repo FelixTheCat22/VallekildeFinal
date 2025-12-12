@@ -8,6 +8,8 @@ public class UIManager : MonoBehaviour
     public TMP_Text healthText;
     public TMP_Text beatText;
     public TMP_Text levelText;
+    public TMP_Text scoreText;
+    public TMP_Text multiplierText;
 
     private void Awake()
     {
