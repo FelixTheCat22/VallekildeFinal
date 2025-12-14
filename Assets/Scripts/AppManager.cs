@@ -3,8 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class AppManager : MonoBehaviour
 {
-    // Eventually, move scene loading from GameManager to here
-    
     public static AppManager Instance;
     
     public float inputOffset;
@@ -33,21 +31,27 @@ public class AppManager : MonoBehaviour
     {
         if (!Instance)
         {
-            // Runs once on game start
+            // Runs the first time main menu is loaded, i.e. on game start
             score = 0;
-            hiScore = 0; // Change to be kept between game starts
+            hiScore = 0; // TODO: Change to be kept between game starts
             _scoreMultiplier = 1;
             Instance = this;
             DontDestroyOnLoad(gameObject);
             ArcadeInput.Initialize();
-            // TODO: Make dependent on Arcade Machine
+            // TODO: Make dependent on Arcade Machine, if possible
             SceneManager.LoadSceneAsync("LEDPanel", LoadSceneMode.Additive);
         }
         else
         {
+            // Runs every time main menu is loaded, except the first.
+            if (Instance.score > Instance.hiScore)
+            {
+                Instance.hiScore = Instance.score;
+            }
             Destroy(gameObject);
         }
-
+        
+        // Runs every time main menu is loaded
         _onMainMenu = true;
     }
 
@@ -131,6 +135,7 @@ public class AppManager : MonoBehaviour
     {
         _onMainMenu = false;
         _currentLevelIndex = 0;
+        score = 0;
         levels[0].Load();
     }
 
@@ -156,6 +161,6 @@ public class AppManager : MonoBehaviour
     public void IncreaseScore(int amount)
     {
         score += amount * _scoreMultiplier;
-        _scoreMultiplier = Mathf.Clamp(_scoreMultiplier, 1, maxMultiplier);
+        _scoreMultiplier = Mathf.Clamp(_scoreMultiplier++, 1, maxMultiplier);
     }
 }
