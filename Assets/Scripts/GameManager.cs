@@ -124,7 +124,11 @@ public class GameManager : MonoBehaviour
 
     public void OnBeat(int lastBeat) // Called by Metronome every beat
     {
-        UIManager.Instance.beatText.text = "Debug | Beat: " + lastBeat;
+        #if UNITY_EDITOR
+            UIManager.Instance.beatText.text = "Debug | Beat: " + lastBeat;
+        #else
+            UIManager.Instance.beatText.text = "";
+        #endif
     }
 
     public void OnPlayerHealthChanged()
