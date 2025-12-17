@@ -35,6 +35,7 @@ public class AppManager : MonoBehaviour
             score = 0;
             //hiScore = 0; // TODO: Change to be kept between game starts
             hiScore = PlayerPrefs.GetInt("killswitchHiScore", 0);
+            inputOffset = PlayerPrefs.GetFloat("killswitchInputOffset", 0);
             _scoreMultiplier = 1;
             Instance = this;
             DontDestroyOnLoad(gameObject);

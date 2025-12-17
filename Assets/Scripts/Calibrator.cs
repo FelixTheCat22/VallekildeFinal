@@ -19,6 +19,7 @@ public class Calibrator : MonoBehaviour
     {
         if (ArcadeInput.InputInitiated(0, exitCalibrator))
         {
+            PlayerPrefs.SetFloat("killswitchInputOffset", AppManager.Instance.inputOffset);
             SceneManager.LoadScene("MainMenu");
             return;
         }
@@ -42,6 +43,7 @@ public class Calibrator : MonoBehaviour
         {
             sum += offset;
         }
-        return sum / _offsets.Count;
+        float avg = sum / _offsets.Count;
+        return float.IsNaN(avg) ? 0 : avg;
     }
 }
