@@ -1307,7 +1307,6 @@ MonoBehaviour:
   allSongs:
   - {fileID: 11400000, guid: 3849fa96e52994a378eadc30094cf714, type: 2}
   - {fileID: 11400000, guid: 2b7f468ce91ad7fb68e90121e763a83f, type: 2}
-  - {fileID: 11400000, guid: 457a82d1255a1f7eca92c6be8636ed30, type: 2}
   - {fileID: 11400000, guid: 8cf4f393c19286e1e8cfdf70d5876ed2, type: 2}
   - {fileID: 11400000, guid: 125945c10ab13137aaa3b96097bceb3f, type: 2}
   - {fileID: 11400000, guid: f88acb4e2741eb657b24c5856df0acf6, type: 2}
@@ -1795,6 +1794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuButtons
   offsetText: {fileID: 1889719057}
+  hiScoreText: {fileID: 2062592096}
 --- !u!4 &1920626926
 Transform:
   m_ObjectHideFlags: 0

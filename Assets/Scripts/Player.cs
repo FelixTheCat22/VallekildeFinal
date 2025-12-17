@@ -63,10 +63,12 @@ public class Player : MonoBehaviour
             AppManager.Instance.OnBeatMiss();
         }
 
+        /* Too punishing
         if (_lastDashBeat < nearestBeat - 1 || _lastShotBeat < nearestBeat - 1)
         {
             AppManager.Instance.OnBeatMiss();
         }
+        */
     }
 
     private void FixedUpdate()

@@ -33,7 +33,8 @@ public class AppManager : MonoBehaviour
         {
             // Runs the first time main menu is loaded, i.e. on game start
             score = 0;
-            hiScore = 0; // TODO: Change to be kept between game starts
+            //hiScore = 0; // TODO: Change to be kept between game starts
+            hiScore = PlayerPrefs.GetInt("killswitchHiScore", 0);
             _scoreMultiplier = 1;
             Instance = this;
             DontDestroyOnLoad(gameObject);
@@ -47,6 +48,7 @@ public class AppManager : MonoBehaviour
             if (Instance.score > Instance.hiScore)
             {
                 Instance.hiScore = Instance.score;
+                PlayerPrefs.SetInt("killswitchHiScore", Instance.hiScore);
             }
             Destroy(gameObject);
         }
@@ -96,11 +98,14 @@ public class AppManager : MonoBehaviour
         audioSource.clip = song.audioClip;
         
         // Initialize LED Panel
-        PanelController.Instance.song = song;
-        PanelController.Instance.audioSource = audioSource;
-        PanelController.Instance.UpdateSongDetails();
-        PanelController.Instance.InitializeVisualizer();
-        
+        if (PanelController.Instance)
+        {
+            PanelController.Instance.song = song;
+            PanelController.Instance.audioSource = audioSource;
+            PanelController.Instance.UpdateSongDetails();
+            PanelController.Instance.InitializeVisualizer();
+        }
+
         // Play
         audioSource.Play();
         
@@ -161,6 +166,6 @@ public class AppManager : MonoBehaviour
     public void IncreaseScore(int amount)
     {
         score += amount * _scoreMultiplier;
-        _scoreMultiplier = Mathf.Clamp(_scoreMultiplier++, 1, maxMultiplier);
+        _scoreMultiplier = Mathf.Clamp(_scoreMultiplier + 1, 1, maxMultiplier);
     }
 }
