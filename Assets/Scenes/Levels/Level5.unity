@@ -1042,86 +1042,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2270197f4657828c6989736d44d87024, type: 3}
---- !u!1001 &864960372
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 118624580346077447, guid: eef7f6bb3f9864cc8bd5f99c93ba3ff1, type: 3}
-      propertyPath: m_Name
-      value: LaserEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 1547620518768850214, guid: eef7f6bb3f9864cc8bd5f99c93ba3ff1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -10.488028
-      objectReference: {fileID: 0}
-    - target: {fileID: 1547620518768850214, guid: eef7f6bb3f9864cc8bd5f99c93ba3ff1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.368826
-      objectReference: {fileID: 0}
-    - target: {fileID: 1547620518768850214, guid: eef7f6bb3f9864cc8bd5f99c93ba3ff1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1547620518768850214, guid: eef7f6bb3f9864cc8bd5f99c93ba3ff1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1547620518768850214, guid: eef7f6bb3f9864cc8bd5f99c93ba3ff1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1547620518768850214, guid: eef7f6bb3f9864cc8bd5f99c93ba3ff1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1547620518768850214, guid: eef7f6bb3f9864cc8bd5f99c93ba3ff1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1547620518768850214, guid: eef7f6bb3f9864cc8bd5f99c93ba3ff1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1547620518768850214, guid: eef7f6bb3f9864cc8bd5f99c93ba3ff1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1547620518768850214, guid: eef7f6bb3f9864cc8bd5f99c93ba3ff1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3341279332153227084, guid: eef7f6bb3f9864cc8bd5f99c93ba3ff1, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 428100052}
-    - target: {fileID: 3341279332153227084, guid: eef7f6bb3f9864cc8bd5f99c93ba3ff1, type: 3}
-      propertyPath: partner
-      value: 
-      objectReference: {fileID: 1379305692}
-    - target: {fileID: 3341279332153227084, guid: eef7f6bb3f9864cc8bd5f99c93ba3ff1, type: 3}
-      propertyPath: gameManager
-      value: 
-      objectReference: {fileID: 281542080}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: eef7f6bb3f9864cc8bd5f99c93ba3ff1, type: 3}
---- !u!114 &864960373 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3341279332153227084, guid: eef7f6bb3f9864cc8bd5f99c93ba3ff1, type: 3}
-  m_PrefabInstance: {fileID: 864960372}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7106878f341349c3a9134423f01b6413, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LaserEnemy
 --- !u!1001 &881642809
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1512,86 +1432,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2270197f4657828c6989736d44d87024, type: 3}
---- !u!1001 &1379305691
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5541705146564699399, guid: d5d7909c8ff4e0c8fb5b28b4ed8706d8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -12.965653
-      objectReference: {fileID: 0}
-    - target: {fileID: 5541705146564699399, guid: d5d7909c8ff4e0c8fb5b28b4ed8706d8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -3.4117928
-      objectReference: {fileID: 0}
-    - target: {fileID: 5541705146564699399, guid: d5d7909c8ff4e0c8fb5b28b4ed8706d8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5541705146564699399, guid: d5d7909c8ff4e0c8fb5b28b4ed8706d8, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5541705146564699399, guid: d5d7909c8ff4e0c8fb5b28b4ed8706d8, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5541705146564699399, guid: d5d7909c8ff4e0c8fb5b28b4ed8706d8, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5541705146564699399, guid: d5d7909c8ff4e0c8fb5b28b4ed8706d8, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5541705146564699399, guid: d5d7909c8ff4e0c8fb5b28b4ed8706d8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5541705146564699399, guid: d5d7909c8ff4e0c8fb5b28b4ed8706d8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5541705146564699399, guid: d5d7909c8ff4e0c8fb5b28b4ed8706d8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6356593091080335654, guid: d5d7909c8ff4e0c8fb5b28b4ed8706d8, type: 3}
-      propertyPath: m_Name
-      value: LaserEnemyLaserParent
-      objectReference: {fileID: 0}
-    - target: {fileID: 8632498921483741037, guid: d5d7909c8ff4e0c8fb5b28b4ed8706d8, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 428100052}
-    - target: {fileID: 8632498921483741037, guid: d5d7909c8ff4e0c8fb5b28b4ed8706d8, type: 3}
-      propertyPath: partner
-      value: 
-      objectReference: {fileID: 864960373}
-    - target: {fileID: 8632498921483741037, guid: d5d7909c8ff4e0c8fb5b28b4ed8706d8, type: 3}
-      propertyPath: gameManager
-      value: 
-      objectReference: {fileID: 281542080}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d5d7909c8ff4e0c8fb5b28b4ed8706d8, type: 3}
---- !u!114 &1379305692 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8632498921483741037, guid: d5d7909c8ff4e0c8fb5b28b4ed8706d8, type: 3}
-  m_PrefabInstance: {fileID: 1379305691}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7106878f341349c3a9134423f01b6413, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LaserEnemy
 --- !u!1001 &1413804000
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2265,6 +2105,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2041862059893400838, guid: 987e9591dbde0b4cc931d70a3fc879e7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2041862059893400838, guid: 987e9591dbde0b4cc931d70a3fc879e7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2041862059893400838, guid: 987e9591dbde0b4cc931d70a3fc879e7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.28
       objectReference: {fileID: 0}
@@ -2344,6 +2192,4 @@ SceneRoots:
   - {fileID: 2091427334}
   - {fileID: 1413804000}
   - {fileID: 884638089}
-  - {fileID: 864960372}
-  - {fileID: 1379305691}
   - {fileID: 4819132458842806540}
