@@ -90,6 +90,7 @@ public class PhysicsEnemy : Enemy
 
     protected void OnTriggerStay2D(Collider2D other)
     {
+        if (!gameManager.Running) return;
         Vector2 away =  transform.position - other.transform.position;
         _rb.AddForce(away.normalized * separationForce);
     }
