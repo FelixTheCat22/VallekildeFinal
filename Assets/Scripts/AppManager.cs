@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class AppManager : MonoBehaviour
 {
@@ -33,7 +35,6 @@ public class AppManager : MonoBehaviour
         {
             // Runs the first time main menu is loaded, i.e. on game start
             score = 0;
-            //hiScore = 0; // TODO: Change to be kept between game starts
             hiScore = PlayerPrefs.GetInt("killswitchHiScore", 0);
             inputOffset = PlayerPrefs.GetFloat("killswitchInputOffset", 0);
             _scoreMultiplier = 1;
@@ -41,7 +42,9 @@ public class AppManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             ArcadeInput.Initialize();
             // TODO: Make dependent on Arcade Machine, if possible
-            SceneManager.LoadSceneAsync("LEDPanel", LoadSceneMode.Additive);
+            #if !UNITY_WEBGL
+                SceneManager.LoadSceneAsync("LEDPanel", LoadSceneMode.Additive);
+            #endif
         }
         else
         {
@@ -98,6 +101,7 @@ public class AppManager : MonoBehaviour
         }
         audioSource.clip = song.audioClip;
         
+        #if !UNITY_WEBGL
         // Initialize LED Panel
         if (PanelController.Instance)
         {
@@ -106,6 +110,7 @@ public class AppManager : MonoBehaviour
             PanelController.Instance.UpdateSongDetails();
             PanelController.Instance.InitializeVisualizer();
         }
+        #endif
 
         // Play
         audioSource.Play();

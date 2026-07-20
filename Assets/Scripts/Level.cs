@@ -11,8 +11,8 @@ public class Level : ScriptableObject
 
     public void Load()
     {
-        SceneManager.LoadScene(levelSceneName);
-        SceneManager.LoadScene("LevelShared", LoadSceneMode.Additive);
+        SceneManager.LoadScene("LevelShared");
+        SceneManager.LoadScene(levelSceneName, LoadSceneMode.Additive);
         SceneManager.sceneLoaded += OnSceneLoad;
     }
 

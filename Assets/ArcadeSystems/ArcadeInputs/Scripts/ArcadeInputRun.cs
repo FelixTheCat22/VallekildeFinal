@@ -227,7 +227,8 @@ public class ArcadeInputRun : MonoBehaviour
             playerToInputIndex.Add(0);
             playerToInputIndex.Add(1);
             playerToInputIndex.Add(2);
-            ArcadeInputLog.Instance.WriteToLog(UnixTimestampMinutes(System.DateTime.Now).ToString());
+            // Logging maybe breaks web build
+            //ArcadeInputLog.Instance.WriteToLog(UnixTimestampMinutes(System.DateTime.Now).ToString());
         }
 
     }
@@ -252,7 +253,8 @@ public class ArcadeInputRun : MonoBehaviour
 
         if (ArcadeInput.AnyInputInitiated(0))
         {
-            ArcadeInputLog.Instance.WriteToLog(UnixTimestampMinutes(System.DateTime.Now).ToString());
+            // Logging maybe breaks web build
+            //ArcadeInputLog.Instance.WriteToLog(UnixTimestampMinutes(System.DateTime.Now).ToString());
         }
     }
 
