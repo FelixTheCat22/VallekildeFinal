@@ -144,6 +144,7 @@ public class AppManager : MonoBehaviour
 
     public void StartFirstLevel()
     {
+        Metronome.Instance.audioSource.mute = false;
         _onMainMenu = false;
         _currentLevelIndex = 0;
         score = 0;

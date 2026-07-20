@@ -12,6 +12,7 @@ public class Calibrator : MonoBehaviour
     
     void Start()
     {
+        Metronome.Instance.audioSource.mute = false;
         AppManager.Instance.PlaySong(calibrationSong, false);
     }
     
