@@ -32,7 +32,7 @@ public class Calibrator : MonoBehaviour
         }
         
         float averageOffset = AverageOffset();
-        offsetText.text = averageOffset + " ms";
+        offsetText.text = $"Average offset: {averageOffset:0.00} ms";
         AppManager.Instance.inputOffset = averageOffset;
     }
 
