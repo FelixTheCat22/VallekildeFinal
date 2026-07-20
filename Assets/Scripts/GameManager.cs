@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
         AppManager.Instance.PlayCurrentLevelSong();
         
         _gameOver = false;
+        Running = false;
     }
 
     private void Update()
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour
         // Has to iterate entire list each frame, move out of update if possible
         CleanEnemyList();
 
-        if (Input.GetKey(KeyCode.CapsLock))
+        if (Input.GetKey(KeyCode.Escape))
         {
             // Implement pause later. For now it is basically a surrender
             EndGame(false);

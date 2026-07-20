@@ -118,15 +118,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   startHealth: 5
   speed: 10
-  dashAvailable: 1
+  dashAvailable: 0
   dashDistance: 6
   grapeshot: 0
   bulletPrefab: {fileID: 9217036224982919062, guid: 8e68722e6f93f5b448971fd3f13e2072, type: 3}
   gameManager: {fileID: 0}
-  shootLeft: 2
-  shootRight: 3
-  shootUp: 0
-  shootDown: 1
   dashButton: 7
 --- !u!212 &5426210524603489354
 SpriteRenderer:

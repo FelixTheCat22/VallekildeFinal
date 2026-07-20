@@ -19,4 +19,4 @@ MonoBehaviour:
   loop: 1
   bpm: 178
   offset: 0
-  levelStartTime: 0
+  levelStartTime: 5.2
